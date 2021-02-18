@@ -1,4 +1,13 @@
-body{
-  margin: 0;
-  background-color: blueviolet;
+@import './Vars.scss';
+@import './Media.scss';
+
+
+body {
+  margin: auto;
+  font-family: $theme-font;
+  background: $main-color;
+}
+
+* {
+  box-sizing: border-box;
 }
