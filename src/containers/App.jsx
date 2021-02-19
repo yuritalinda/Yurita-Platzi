@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import Categories from '../components/Categories';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
 import Footer from '../components/Footer';
+import useInitialState from '../hooks/useInitialState';
 
 import '../assets/styles/App.scss';
 
 
 
+const API = 'http://localhost:3000/initalState';
+
 
 const App = () => {
+
+  const initialState = useInitialState(API);
+
+
   return (
     <div className="App">
 
@@ -19,28 +26,33 @@ const App = () => {
       <Header />
       <Search />
 
-{/*  cuando hay componentes que usan otros se anidan asi*/}
-      <Categories title="Mi lista">
+      
+        <Categories title="Mi lista">
         <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
           <CarouselItem />
         </Carousel>
       </Categories>
+      
+      
+
 
       <Categories title ="Tendencias">
         <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
+          {initialState.trends.map(item =>
+            <CarouselItem key= {item.id} {...item} />
+
+          )}
+          
         </Carousel>
       </Categories>
 
       <Categories title="Originales de Platzi">
         <Carousel>
-          <CarouselItem />
-          <CarouselItem />
+          {initialState.originals.map(item =>
+          <CarouselItem key= {item.id} {...item}/>
+
+          )}
+          
         </Carousel>
       </Categories>
 
